@@ -43,7 +43,7 @@ class Admin(commands.Cog):
         cmd = ["python", "launcher.py"]
         subprocess.call(cmd)
 
-        exit(0)
+        await self.shutdown.invoke()
 
     @commands.command()
     async def shutdown(self, ctx):
