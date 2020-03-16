@@ -39,11 +39,7 @@ class Admin(commands.Cog):
         # ファイルの更新
         cmd = ["git", "pull", "origin", "master"]
         subprocess.call(cmd)
-
-        cmd = ["python", "launcher.py"]
-        subprocess.call(cmd)
-
-        await self.shutdown.invoke()
+        await ctx.send("ファイルの更新を行いました。")
 
     @commands.command()
     async def shutdown(self, ctx):
