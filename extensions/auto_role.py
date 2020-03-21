@@ -185,9 +185,6 @@ class AutoRole(commands.Cog):
 
         sender = message.author
 
-        if len(sender.roles) > 1:
-            return
-
         channel_id = message.channel.id
         roles = [
             guild.get_role(i[ROLE_ID])
