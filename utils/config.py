@@ -43,12 +43,15 @@ class Config:
     def get(self, key, *, default=None):
         return self.data.get(key, default)
 
+    def __contains__(self, item):
+        return item in self.data
+
     def __getitem__(self, key):
         if self.data is None:
             raise Exception(
                 "The load method must be called first if access to configuration data."
             )
-        return self.data.__getitem__(key)
+        return self.data[key]
 
     def __setitem__(self, key, value):
         if self.data is None:
