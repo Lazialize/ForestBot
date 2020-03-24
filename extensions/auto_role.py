@@ -74,7 +74,7 @@ class AutoRole(commands.Cog):
         embed = Embed()
         count = 0
 
-        for k, v in self.config[guild_id][CONTENTS]:
+        for k, v in self.config[guild_id][CONTENTS].items():
             channel_name = ctx.guild.get_channel(v[CHANNEL_ID]).name
             role_name = ctx.guild.get_role(v[ROLE_ID]).name
             embed.add_field(name=k, value=f"チャンネル: {channel_name}, 役職: {role_name}")
