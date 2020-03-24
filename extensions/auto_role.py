@@ -145,7 +145,7 @@ class AutoRole(commands.Cog):
     @commands.has_permissions(manage_guild=True)
     async def add_role(self, ctx, channel: TextChannel, role: Role):
         guild_id = str(ctx.guild.id)
-        for k, v in self.config[guild_id][CONTENTS]:
+        for k, v in self.config[guild_id][CONTENTS].items():
             if v[CHANNEL_ID] == channel.id and v[ROLE_ID] == role.id:
                 await ctx.send(f"その設定は既に存在します。ID: {k}")
                 return
