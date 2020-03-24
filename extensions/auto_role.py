@@ -190,8 +190,11 @@ class AutoRole(commands.Cog):
             guild.get_role(i[ROLE_ID])
             for i in self.config[guild_id][CONTENTS].values()
             if i[CHANNEL_ID] == channel_id
-            and i[ROLE_ID] not in [r.id for r in sender.roles]
         ]
+
+        for role in roles:
+            if role in sender.roles:
+                roles.remove(role)
 
         if len(roles) <= 0:
             return
