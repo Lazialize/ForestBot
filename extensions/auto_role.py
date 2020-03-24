@@ -166,7 +166,9 @@ class AutoRole(commands.Cog):
             await ctx.send("指定のIDを持つ設定は存在しません。")
             return
 
-        del self.config[guild_id][CONTENTS][setting_id]
+        pop_item = self.config[guild_id][CONTENTS].pop(setting_id, None)
+        if pop_item is None:
+            return
         await self.config.save()
         await ctx.send("設定を削除しました。")
 
