@@ -11,6 +11,7 @@ INITIAL_EXTENSIONS = (
     "extensions.auto_kick",
     "extensions.auto_role",
     "extensions.reaction_role",
+    "extensions.embed_creator",
 )
 
 
