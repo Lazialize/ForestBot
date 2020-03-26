@@ -10,6 +10,7 @@ INITIAL_EXTENSIONS = (
     "extensions.admin",
     "extensions.auto_kick",
     "extensions.auto_role",
+    "extensions.reaction_role",
 )
 
 
