@@ -130,8 +130,8 @@ class ReactionRole(commands.Cog):
     async def on_raw_reaction_add(self, payload: RawReactionActionEvent):
         guild = self.bot.get_guild(payload.guild_id)
         guild_id = str(guild.id)
-        user = guild.get_member(payload.user_id)
-        if user.bot:
+        member = guild.get_member(payload.user_id)
+        if member.bot:
             return
         if self.config.get(guild_id) is None:
             return
@@ -152,14 +152,16 @@ class ReactionRole(commands.Cog):
         if role is None:
             return
 
-        if role not in user.roles:
-            await user.add_roles(role)
+        channel = guild.get_channel(payload.channel_id)
+        message = await channel.fetch_message(payload.message_id)
+        await message.remove_reaction(payload.emoji, member)
+
+        if role not in member.roles:
+            await member.add_roles(role)
+            await channel.send(f"{member.mention}に{role.name}を付与しました。", delete_after=5)
         else:
-            await user.remove_roles(role)
-        message = await guild.get_channel(payload.channel_id).fetch_message(
-            payload.message_id
-        )
-        await message.remove_reaction(payload.emoji, user)
+            await member.remove_roles(role)
+            await channel.send(f"{member.mention}の{role.name}を削除しました。", delete_after=5)
 
 
 def setup(bot):
