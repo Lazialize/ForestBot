@@ -1,5 +1,4 @@
 import uuid
-import unicodedata
 
 from discord import Role, Message, RawReactionActionEvent, Embed
 from discord.ext import commands
@@ -47,7 +46,7 @@ class ReactionRole(commands.Cog):
         for k, v in self.config[guild_id][CONTENTS].items():
             channel_name = ctx.guild.get_channel(v[CHANNEL_ID]).name
             role_name = ctx.guild.get_role(v[ROLE_ID]).name
-            emoji = unicodedata.lookup(v[EMOJI])
+            emoji = v[EMOJI]
             embed.add_field(
                 name=k,
                 value=f"チャンネル: {channel_name}, メッセージID: {v[MESSAGE_ID]}, 役職: {role_name}, Emoji: {emoji}",
@@ -88,7 +87,7 @@ class ReactionRole(commands.Cog):
             if (
                 v[CHANNEL_ID] == message.channel.id
                 and v[MESSAGE_ID] == message.id
-                and v[EMOJI] == unicodedata.name(emoji)
+                and v[EMOJI] == emoji
             ):
                 await ctx.send(f"その設定は既に存在するか、重複しています。ID: {k}")
                 return
@@ -98,7 +97,7 @@ class ReactionRole(commands.Cog):
             CHANNEL_ID: message.channel.id,
             MESSAGE_ID: message.id,
             ROLE_ID: role.id,
-            EMOJI: unicodedata.name(emoji),
+            EMOJI: emoji,
         }
 
         self.config[guild_id][CONTENTS][settings_id] = setting_content
@@ -120,9 +119,7 @@ class ReactionRole(commands.Cog):
 
         channel = ctx.guild.get_channel(pop_item[CHANNEL_ID])
         message = await channel.fetch_message(pop_item[MESSAGE_ID])
-        await message.remove_reaction(
-            unicodedata.lookup(pop_item[EMOJI]), self.bot.user
-        )
+        await message.remove_reaction(pop_item[EMOJI], self.bot.user)
         await self.config.save()
         await ctx.send("設定を削除しました。")
 
@@ -143,7 +140,7 @@ class ReactionRole(commands.Cog):
             if (
                 v[CHANNEL_ID] != payload.channel_id
                 or v[MESSAGE_ID] != payload.message_id
-                or v[EMOJI] != unicodedata.name(payload.emoji.name)
+                or v[EMOJI] != payload.emoji.name
             ):
                 continue
 
