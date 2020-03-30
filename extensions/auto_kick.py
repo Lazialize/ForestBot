@@ -107,9 +107,13 @@ class AutoKick(commands.Cog):
                 continue
 
             notify_channel = guild.get_channel(self.config[guild_id][NOTIFY_CHANNEL])
+            role = guild.get_role(690207601635491890)
+
+            if role is None:
+                continue
 
             for member in guild.members:
-                if len(member.roles) > 1:
+                if role in member.roles:
                     continue
 
                 limit_date = (
