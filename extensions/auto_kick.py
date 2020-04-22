@@ -1,6 +1,6 @@
 from datetime import timedelta, datetime
 
-from discord import Embed
+from discord import Embed, TextChannel
 from discord.ext import commands, tasks
 
 from forest_bot import ForestBot
@@ -59,7 +59,7 @@ class AutoKick(commands.Cog):
 
     @autokick.command(name="setlog")
     @commands.has_permissions(manage_guild=True)
-    async def set_log_channel(self, ctx, channel):
+    async def set_log_channel(self, ctx, channel: TextChannel):
         try:
             self.config[str(ctx.guild.id)][NOTIFY_CHANNEL] = channel.id
             await self.config.save()
