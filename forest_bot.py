@@ -10,6 +10,7 @@ INITIAL_EXTENSIONS = (
     "extensions.admin",
     "extensions.auto_kick",
     "extensions.auto_role",
+    "extensions.image_log",
     "extensions.reaction_role",
     "extensions.embed_creator",
 )
