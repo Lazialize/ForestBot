@@ -6,6 +6,9 @@ class ImageLog(commands.Cog):
     
     @commands.Cog.listener()
     async def on_message(self, message):
+        if message.author.bot:
+            return
+            
         if message.guild.id != 408139758490091521:
             return
 
