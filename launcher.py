@@ -18,10 +18,10 @@ def load_config():
 
     # 設定データにAPIキーがあるかを確認し、存在しなければ環境変数の値を取得する。
     if config.get(API_TOKEN_KEY) is None:
-        logger.warning(f"Bot token does not exist in config data.")
+        logger.warning("Bot token does not exist in config data.")
         env_var = os.environ.get(API_TOKEN_KEY)
         if env_var is None:
-            logger.error(f"Bot token does not exist also in environment variables")
+            logger.error("Bot token does not exist also in environment variables")
             exit(1)
 
         config[API_TOKEN_KEY] = env_var
