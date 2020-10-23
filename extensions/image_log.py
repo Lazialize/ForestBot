@@ -25,7 +25,7 @@ class ImageLog(commands.Cog):
             time = message.created_at.astimezone(datetime.timezone(datetime.timedelta(hours=+9)))
             time_stamp = datetime.datetime.strftime(time, '%Y-%m-%d %H:%M:%S')
 
-            await log_channel.send(f"{message.author}から送信された画\n{message.channel.mention}\n{time_stamp}", file=file)
+            await log_channel.send(f"{message.author}から送信された画像\n{message.channel.mention}\n{time_stamp}", file=file)
 
 
 def setup(bot):
