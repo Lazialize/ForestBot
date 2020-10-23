@@ -1,5 +1,6 @@
 import logging
 
+import discord
 from discord.ext import commands
 
 
@@ -18,7 +19,9 @@ INITIAL_EXTENSIONS = (
 
 class ForestBot(commands.Bot):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        intents = discord.Intents.default()
+        intents.members = True
+        super().__init__(intents=intents, *args, **kwargs)
 
         logger.debug("Began to load extensions.")
         for ext in INITIAL_EXTENSIONS:
